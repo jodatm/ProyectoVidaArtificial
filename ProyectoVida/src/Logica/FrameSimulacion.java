@@ -12,6 +12,7 @@ public class FrameSimulacion extends JFrame {
 	
 	JPanel contentPane;
 	public static JTextField textFieldPasto;
+	public static JTextField textFieldCantidadMaxCesped;
 	public static JTextField textFieldCantidadO;
 	JTextField textFieldComidaO;
 	JTextField textFieldVidaO;
@@ -46,6 +47,9 @@ public class FrameSimulacion extends JFrame {
 		labelTitulo.setBounds(10, 11, 132, 14);
 		panelDatos.add(labelTitulo);
 		
+                
+                
+                    
 		JPanel labeltiempoPasto = new JPanel();
 		labeltiempoPasto.setBackground(Color.WHITE);
 		labeltiempoPasto.setBorder(new TitledBorder(UIManager.getBorder("TitledBorder.border"), "Tiempo aparici\u00F3n ", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 128, 128)));
@@ -58,16 +62,30 @@ public class FrameSimulacion extends JFrame {
 		labeltiempoPasto.add(textFieldPasto);
 		textFieldPasto.setColumns(10);
 		
+                JPanel labelMaxPasto = new JPanel();
+		labelMaxPasto.setBackground(Color.WHITE);
+		labelMaxPasto.setBorder(new TitledBorder(UIManager.getBorder("TitledBorder.border"), "M\u00E1xima Cantidad Pasto", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 128, 128)));
+		labelMaxPasto.setBounds(10, 80, 152, 43);
+		panelDatos.add(labelMaxPasto);
+		labelMaxPasto.setLayout(null);
+                
+                //Campo para digitar la máxima cantidad de pasto en el ambiente
+                textFieldCantidadMaxCesped = new JTextField();
+                textFieldCantidadMaxCesped.setColumns(10);
+		textFieldCantidadMaxCesped.setBounds(10, 17, 57, 20);
+		labelMaxPasto.add(textFieldCantidadMaxCesped);
+                
+                
 		JLabel labelTitulo1 = new JLabel("Configuraci\u00F3n Ovejas");
 		labelTitulo1.setFont(new Font("Tahoma", Font.BOLD, 11));
-		labelTitulo1.setBounds(10, 90, 132, 14);
+		labelTitulo1.setBounds(10, 131, 132, 14);
 		panelDatos.add(labelTitulo1);
 		
 		JPanel labelCantidad = new JPanel();
 		labelCantidad.setLayout(null);
 		labelCantidad.setBorder(new TitledBorder(UIManager.getBorder("TitledBorder.border"), "Cantidad", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 128, 128)));
 		labelCantidad.setBackground(Color.WHITE);
-		labelCantidad.setBounds(10, 115, 152, 43);
+		labelCantidad.setBounds(10, 143, 152, 43);
 		panelDatos.add(labelCantidad);
 		
 		textFieldCantidadO = new JTextField();
@@ -75,11 +93,13 @@ public class FrameSimulacion extends JFrame {
 		textFieldCantidadO.setBounds(10, 17, 57, 20);
 		labelCantidad.add(textFieldCantidadO);
 		
+                
+                    
 		JPanel labelTiempoComida = new JPanel();
 		labelTiempoComida.setBorder(new TitledBorder(UIManager.getBorder("TitledBorder.border"), "Tiempo m\u00E1x sin comer", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 128, 128)));
 		labelTiempoComida.setLayout(null);		
 		labelTiempoComida.setBackground(Color.WHITE);
-		labelTiempoComida.setBounds(10, 165, 152, 43);
+		labelTiempoComida.setBounds(10, 184, 152, 43);
 		panelDatos.add(labelTiempoComida);
 		
 		textFieldComidaO = new JTextField();
@@ -91,7 +111,7 @@ public class FrameSimulacion extends JFrame {
 		labelVida.setLayout(null);
 		labelVida.setBorder(new TitledBorder(UIManager.getBorder("TitledBorder.border"), "Tiempo de vida", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 128, 128)));
 		labelVida.setBackground(Color.WHITE);
-		labelVida.setBounds(10, 218, 152, 43);
+		labelVida.setBounds(10, 237, 152, 43);
 		panelDatos.add(labelVida);
 		
 		textFieldVidaO = new JTextField();
@@ -103,7 +123,7 @@ public class FrameSimulacion extends JFrame {
 		labelAparearse.setLayout(null);
 		labelAparearse.setBorder(new TitledBorder(UIManager.getBorder("TitledBorder.border"), "Tiempo de aparearse", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 128, 128)));
 		labelAparearse.setBackground(Color.WHITE);
-		labelAparearse.setBounds(10, 272, 152, 43);
+		labelAparearse.setBounds(10, 291, 152, 43);
 		panelDatos.add(labelAparearse);
 		
 		textFieldAparearO = new JTextField();
@@ -113,14 +133,14 @@ public class FrameSimulacion extends JFrame {
 		
 		JLabel labelTitulo2 = new JLabel("Configuraci\u00F3n Lobos");
 		labelTitulo2.setFont(new Font("Tahoma", Font.BOLD, 11));
-		labelTitulo2.setBounds(10, 326, 132, 14);
+		labelTitulo2.setBounds(10, 343, 132, 14);
 		panelDatos.add(labelTitulo2);
 		
 		JPanel labelCantidad1 = new JPanel();
 		labelCantidad1.setLayout(null);
 		labelCantidad1.setBorder(new TitledBorder(UIManager.getBorder("TitledBorder.border"), "Cantidad", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 128, 128)));
 		labelCantidad1.setBackground(Color.WHITE);
-		labelCantidad1.setBounds(10, 351, 152, 43);
+		labelCantidad1.setBounds(10, 370, 152, 43);
 		panelDatos.add(labelCantidad1);
 		
 		textFieldCantidadL = new JTextField();
@@ -132,7 +152,7 @@ public class FrameSimulacion extends JFrame {
 		labelComida1.setLayout(null);
 		labelComida1.setBorder(new TitledBorder(UIManager.getBorder("TitledBorder.border"), "Tiempo Alimentaci\u00F3n", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 128, 128)));
 		labelComida1.setBackground(Color.WHITE);
-		labelComida1.setBounds(10, 401, 152, 43);
+		labelComida1.setBounds(10, 420, 152, 43);
 		panelDatos.add(labelComida1);
 		
 		textFieldComidaL = new JTextField();
@@ -145,6 +165,13 @@ public class FrameSimulacion extends JFrame {
 		panelDatos.add(buttonIniciar);
                 textFieldCantidadL.setText("5");
                 textFieldCantidadO.setText("10");
+//                textFieldCantidadMaxCesped.setText("20");
+//                textFieldPasto.setText("10");
+//                textFieldComidaL.setText("5");
+//                textFieldComidaO.setText("10");
+//                textFieldVidaO.setText("5");
+//                textFieldAparearO.setText("10");
+                
                 buttonIniciar.addActionListener(new java.awt.event.ActionListener() {
                 public void actionPerformed(java.awt.event.ActionEvent evt) {
                     iniciar();
