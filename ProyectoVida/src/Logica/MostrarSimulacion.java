@@ -30,6 +30,14 @@ public class MostrarSimulacion extends JFrame {
     int velocidadOvejas = 2; //velocidad de las ovejas
     int velocidadLobos = 2; //velocidad de los lobos
 
+    /////////////////////////////
+    //autor: jonathan loaiza rosero
+    boolean horaDeComer = false;  //variable para activar el movimiento de un lobo hacia su comida
+    int tiempoLobosAlimento;     //guarda la cantidad de tiempo que tiene que transcurrir para que un lobo se coma una oveja
+    int loboAleatorio;          // lobo seleccionado aleatoriamente para que se coma una oveja
+    int ovejaObjetivo;         // oveja seleccionada para ser comida
+    /////////////////////////////
+    
     int cantPasto = 5; //cantidad de pasto que quirenque aparezca cada X tiempo
     int maxCantidadPasto; //cantidad máxima de pasto en el ambiente
     int tiempoPasto;
@@ -49,7 +57,10 @@ public class MostrarSimulacion extends JFrame {
         cantLobos = Integer.parseInt(FrameSimulacion.textFieldCantidadL.getText());
         tiempoPasto = Integer.parseInt(FrameSimulacion.textFieldPasto.getText());
         maxCantidadPasto = Integer.parseInt(FrameSimulacion.textFieldCantidadMaxCesped.getText());
-
+    /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    // autor: jonathan loaiza rosero
+        tiempoLobosAlimento = Integer.parseInt(FrameSimulacion.textFieldComidaL.getText());  // se obtiene el tiempo apartir un lobo busca su comida
+    //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         lasOvejas = laSimulacion.Oveja(cantOvejas);
         losLobos = laSimulacion.Lobo(cantLobos);
         elPasto = laSimulacion.Pasto(cantPasto);
@@ -125,7 +136,9 @@ public class MostrarSimulacion extends JFrame {
                 while (true) {
                     try {
                         moverOveja();
-                        moverLobo();
+                        if(horaDeComer==false){
+                            moverLobo();
+                        }
 
                         if (contador == 20) {
                             // cuando contador == 20 quiere decir que ha parado 20 veces por un tiempo de 50 milisegundos
@@ -135,6 +148,19 @@ public class MostrarSimulacion extends JFrame {
 
                             System.out.println("segundo: " + segundosEjecucion);
                             textoSegundos.setText("segundo: " + segundosEjecucion);
+                            
+                            /////////////////////////////////////////////////////////////////////////
+                            if(segundosEjecucion % tiempoLobosAlimento == 0 && horaDeComer == false){ // cada X segundos un lobo busca comida, sin embargo un lobo no va a buscar antes que otro termine
+                                horaDeComer = true;  
+                                loboAleatorio = r.nextInt(5);   // se selecciona el lobo aleatorio
+                                ovejaObjetivo = ovejaMasCercana(loboAleatorio); // se encuentra la oveja mas cercana al lobo
+                            }
+                            
+                            if(horaDeComer){
+                                    moverLovoHastaOvejaObjetivo();  // movimiento del lobo en busca de comida
+                                }
+                            
+                            //////////////////////////////////////////////////////////////////////////
 
                             if (segundosEjecucion % tiempoPasto == 0) {//cada X segundos agrega pasto (en este caso 3 segundos)
 
@@ -261,6 +287,81 @@ public class MostrarSimulacion extends JFrame {
         }
     }
 
+///////////////////////////////////////////////////////////////////////////// 
+    //autor: jonathan loaiza rosero
+    public int ovejaMasCercana(int wolf){
+       
+        int x1 = losLobos.get(wolf).getX();
+        int y1 = losLobos.get(wolf).getY();
+        int ovejaMasCercana = 0;                                         // se compara la distancia de un lobo con todas
+        int distanciaOvejaMasCercana=2000;                               // las ovejas para saber cúal es la mas cercana
+        for(int i = 0;i<lasOvejas.size();i++){
+            int dist = distancia(x1,y1,lasOvejas.get(i).getX(),lasOvejas.get(i).getY());
+            if(dist < distanciaOvejaMasCercana){
+                distanciaOvejaMasCercana = dist;
+                ovejaMasCercana = i; 
+                }
+        }
+        return ovejaMasCercana;
+    }
+    
+    public int distancia(int x1,int y1, int x2, int y2){
+        int Dx = x2 - x1;
+        int Dy = y2 - y1;                             //clasica formula de la distancia entre dos puntos. 
+        return (int)Math.sqrt(Dx*Dx + Dy*Dy); 
+    }
+    
+    public void moverLovoHastaOvejaObjetivo(){
+        int x1 = losLobos.get(loboAleatorio).getX();
+        int y1 = losLobos.get(loboAleatorio).getY();
+        int x2 = lasOvejas.get(ovejaObjetivo).getX();
+        int y2 = lasOvejas.get(ovejaObjetivo).getY();
+        
+        //Acontinuación se implementa el algoritmo incremental básico pero solo haciendo 3 iteraciones 
+        //para que se presente un comportamiento "coerente" de el movimiento del lobo
+        
+  
+	int y=y1;
+        int z = 0;
+        int dist = distancia(x1,y1,x2,y2);
+        if(dist>=0 && dist<=20){
+            lasOvejas.remove(ovejaObjetivo);
+            horaDeComer = false;
+            
+        }else{
+	if(x1!=x2){
+            int m = (y2-y1)/(x2-x1);
+              for(int x = x1;x<=x2;x++){
+		if(z<=2){
+                    y += m;
+                    z+=1;                         //si, solo se mueve un lobo los demás quedan inmoviles hay que arreglarlo.
+                }else{
+                    x1=x;
+                    x = x2+1;
+                }
+            }
+            z=0;
+            losLobos.get(loboAleatorio).setX(x1);
+            losLobos.get(loboAleatorio).setY(y);
+        }else{
+            int x = x1;
+            for(int j=y1;j<=y2;j++){
+		if(z<=2){    //z<=2
+                    z+=1;
+                }else{
+                    y1=j;
+                    j = y2+1;
+                }
+            }
+            z=0;
+            losLobos.get(loboAleatorio).setX(x);
+            losLobos.get(loboAleatorio).setY(y1);
+}
+        
+    }
+    }
+////////////////////////////////////////////////////////////////////////////////    
+    
     public void agregarPasto() {
         elPasto = laSimulacion.Pasto(cantPasto);
     }

@@ -18,7 +18,10 @@ public class FrameSimulacion extends JFrame {
 	JTextField textFieldVidaO;
 	JTextField textFieldAparearO;
 	public static JTextField textFieldCantidadL;
-	JTextField textFieldComidaL;
+	/////////////////////////////////////////////////////////
+        // Autor: jonathan loaiza rosero
+	public static JTextField textFieldComidaL; //se habilita esta variable para acceder desde otras clases.
+	////////////////////////////////////////////////////////
 	
 
 	public FrameSimulacion() {
