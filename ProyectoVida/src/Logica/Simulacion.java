@@ -10,6 +10,8 @@ import java.util.*;
 public class Simulacion {
     int randomX;
     int randomY;
+   
+   int randomVejesmaxima;
     
     int ancho = 1150;
     int  alto = 720;
@@ -31,11 +33,12 @@ public class Simulacion {
         for(int i=0; i< cantOvejas;i++){     
             randomX= (int) (Math.random()*(ancho)) + 10;
             randomY= (int) (Math.random()*(alto)) + 10;
+            randomVejesmaxima = (int) (Math.random()*(20)) + 20;
             if(i%2 == 0){
-                laOveja = new Oveja(i, randomX, randomY);
+                laOveja = new Oveja(i, randomX, randomY,randomVejesmaxima);
             }
             else{
-                laOveja = new Oveja(i, randomX, randomY);
+                laOveja = new Oveja(i, randomX, randomY,randomVejesmaxima);
             }            
             Ovejas.add(laOveja);      
         }        

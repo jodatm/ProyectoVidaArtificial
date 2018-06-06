@@ -25,6 +25,10 @@ public class MostrarSimulacion extends JFrame {
     Image lobo = new ImageIcon(getClass().getResource("/img/lobo.png")).getImage();
     Image pasto = new ImageIcon(getClass().getResource("/img/pasto.png")).getImage();
     Image fondo = new ImageIcon(getClass().getResource("/img/fondo.png")).getImage();
+    
+    Image ovejaMuerta = new ImageIcon(getClass().getResource("/img/ovejaRip.png")).getImage();                         
+    Image ovejoMuerto = new ImageIcon(getClass().getResource("/img/ovejoRip.png")).getImage();
+    
     int cantOvejas;
     int cantLobos;
     int velocidadOvejas = 2; //velocidad de las ovejas
@@ -169,7 +173,10 @@ public class MostrarSimulacion extends JFrame {
                                     agregarPasto();
                                     System.out.println("cantPasto: " + elPasto.size());
                                 }
+                               
+                                
                             }
+                             comprovarVidaObejas(segundosEjecucion);
                         }
 
                         contador++;
@@ -193,7 +200,8 @@ public class MostrarSimulacion extends JFrame {
 
         //ovejas
         for (int i = 0; i < lasOvejas.size(); i++) {
-            if (i % 2 == 0) {
+           if(lasOvejas.get(i).estaViva()){
+             if (i % 2 == 0) {
 
                 //Pinta identificador de la oveja
                 g.drawString(String.valueOf(lasOvejas.get(i).getId() + 1), lasOvejas.get(i).getX() + 8, lasOvejas.get(i).getY());
@@ -213,6 +221,14 @@ public class MostrarSimulacion extends JFrame {
                 buffer.drawImage(ovejo, lasOvejas.get(i).getX(), lasOvejas.get(i).getY(), this);
 
             }
+           } else{
+                if (i % 2 == 0) {
+                    buffer.drawImage(ovejaMuerta, lasOvejas.get(i).getX(), lasOvejas.get(i).getY(), this);
+                } else {
+                    buffer.drawImage(ovejoMuerto, lasOvejas.get(i).getX(), lasOvejas.get(i).getY(), this);
+                }            
+            }
+           
         }
 
         //lobos
@@ -243,6 +259,7 @@ public class MostrarSimulacion extends JFrame {
             /*
             *Movimientos aleatorios comprobando los limites del frame
              */
+            if(lasOvejas.get(i).estaViva()){
             if (numerosAleatorios[randomX] == 1 && numerosAleatorios[randomY] == 1) {
                 lasOvejas.get(i).setX(lasOvejas.get(i).getX() + ((lasOvejas.get(i).getX() >= 1163) ? -velocidadOvejas : velocidadOvejas));
                 lasOvejas.get(i).setY(lasOvejas.get(i).getY() + ((lasOvejas.get(i).getY() >= 27) ? -velocidadOvejas : velocidadOvejas));
@@ -255,6 +272,7 @@ public class MostrarSimulacion extends JFrame {
             } else if (numerosAleatorios[randomX] == -1 && numerosAleatorios[randomY] == 1) {
                 lasOvejas.get(i).setX(lasOvejas.get(i).getX() - ((lasOvejas.get(i).getX() >= 5) ? velocidadOvejas : -velocidadOvejas));
                 lasOvejas.get(i).setY(lasOvejas.get(i).getY() + ((lasOvejas.get(i).getY() >= 27) ? -velocidadOvejas : velocidadOvejas));
+            }
             }
         }
     }
@@ -364,6 +382,13 @@ public class MostrarSimulacion extends JFrame {
     
     public void agregarPasto() {
         elPasto = laSimulacion.Pasto(cantPasto);
+    }
+       public void comprovarVidaObejas(int segundosEjecucion){  // comprobar si cada una de las ovejas del vector, ya debe morir de vieja
+        for (int i = 0; i < 10; i++) {
+            if(lasOvejas.get(i).getVejesMaxima() == segundosEjecucion){
+                lasOvejas.get(i).matarOveja();
+            }
+        }                                 
     }
 
 }
