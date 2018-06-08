@@ -15,7 +15,7 @@ public class FrameSimulacion extends JFrame {
 	public static JTextField textFieldCantidadMaxCesped;
 	public static JTextField textFieldCantidadO;
 	JTextField textFieldComidaO;
-	JTextField textFieldVidaO;
+	public static JTextField textFieldVidaO;
 	JTextField textFieldAparearO;
 	public static JTextField textFieldCantidadL;
 	/////////////////////////////////////////////////////////

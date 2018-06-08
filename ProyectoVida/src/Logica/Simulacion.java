@@ -33,7 +33,7 @@ public class Simulacion {
         for(int i=0; i< cantOvejas;i++){     
             randomX= (int) (Math.random()*(ancho)) + 10;
             randomY= (int) (Math.random()*(alto)) + 10;
-            randomVejesmaxima = (int) (Math.random()*(20)) + 20;
+            randomVejesmaxima = Integer.parseInt(FrameSimulacion.textFieldVidaO.getText()); 
             if(i%2 == 0){
                 laOveja = new Oveja(i, randomX, randomY,randomVejesmaxima);
             }
