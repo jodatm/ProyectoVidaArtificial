@@ -10,7 +10,6 @@ public class MostrarSimulacion extends JFrame {
 
     Simulacion laSimulacion = new Simulacion();
     ArrayList<Oveja> lasOvejas = new ArrayList<>();
-    //ArrayList<Integer> lasOvejasObjetivo = new ArrayList<>(); // guarda el indice de cada oveja objetivo para cada lobo.
     ArrayList<Lobo> losLobos = new ArrayList<>();
     ArrayList<Pasto> elPasto = new ArrayList<>();
     Distancia distancia = new Distancia();
@@ -43,14 +42,12 @@ public class MostrarSimulacion extends JFrame {
 
     int tiempoVidaOvejas;
     int visionOvejas = 200; // Máxima distancia de visión de las ovejas para detectar pareja o lobos
-    /////////////////////////////
-    //autor: jonathan loaiza rosero
+    
     boolean horaDeComer = false;
-    //boolean[] horaDeComerLobo = {false,false,false,false,false};  // arreglo para saber cuando los lobos tienen hambre
     int tiempoLobosAlimento;     //guarda la cantidad de tiempo que tiene que transcurrir para que un lobo se coma una oveja
     int ovejaObjetivo;
     int loboAleatorio;
-    /////////////////////////////
+
 
     int cantPasto = 5; //cantidad de pasto que quirenque aparezca cada X tiempo
     int maxCantidadPasto; //cantidad máxima de pasto en el ambiente
@@ -75,15 +72,9 @@ public class MostrarSimulacion extends JFrame {
 
         tiempoVidaOvejas = Integer.parseInt(FrameSimulacion.textFieldVidaO.getText());
         tiempoAparearse = Integer.parseInt(FrameSimulacion.textFieldAparearO.getText());
-        /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-        // autor: jonathan loaiza rosero
-        /*lasOvejasObjetivo.add(1);
-        lasOvejasObjetivo.add(2);  
-        lasOvejasObjetivo.add(3);  
-        lasOvejasObjetivo.add(4);
-        lasOvejasObjetivo.add(5);*/
+        
         tiempoLobosAlimento = Integer.parseInt(FrameSimulacion.textFieldComidaL.getText());  // se obtiene el tiempo apartir un lobo busca su comida
-//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
         lasOvejas = laSimulacion.Oveja(cantOvejas, tiempoVidaOvejas, tiempoAparearse);
         losLobos = laSimulacion.Lobo(cantLobos);
         elPasto = laSimulacion.Pasto(cantPasto);
@@ -211,14 +202,6 @@ public class MostrarSimulacion extends JFrame {
                             tiempoApareamiento();
                             /////////////////////////////////////////////////////////////////////////
                             if (segundosEjecucion % tiempoLobosAlimento == 0) { // cada X segundos un lobo busca comida.
-                                /*for(int i=0;i<5;i++){
-                                    if(horaDeComerLobo[i]==false){
-                                        horaDeComerLobo[i]=true;
-                                        ovejaObjetivo = ovejaMasCercana(i);   // a cada lobo se le asigna una oveja en especifico
-                                        lasOvejasObjetivo.set(i,ovejaObjetivo);   
-                                        i=5 +1;
-                                    }
-                                } */
 
                                 horaDeComer = true;
                                 loboAleatorio = r.nextInt(5);   // se selecciona el lobo aleatorio
@@ -371,21 +354,7 @@ public class MostrarSimulacion extends JFrame {
     public void moverLobo() {
         for (int i = 0; i < losLobos.size(); i++) {
 
-            /*if(horaDeComerLobo[i]){
-                int ovejaMarcada = obtenerOveja(lasOvejasObjetivo.get(i));
-                if(ovejaMarcada==-1){
-                     int ovejaTemp = ovejaMasCercana(i);
-                     lasOvejasObjetivo.set(i,ovejaTemp);
-                     ovejaMarcada =  obtenerOveja(lasOvejasObjetivo.get(i));      // se modifico la función para que los lobos no se queden estaticos
-                     //moverLovoHastaOvejaObjetivo(i,ovejaMarcada);                 // se comprueba si la presa de cada lobo esta viva o muerta
-                     moverLoboHastaOvejaObjetivo(i,ovejaMarcada);
-                }else{                                                            // si esta muerta se busca otra presa.
-                     //moverLovoHastaOvejaObjetivo(i,ovejaMarcada);
-                     moverLoboHastaOvejaObjetivo(i,ovejaMarcada);
-                }
-            }else{
-                moverLoboAux(i);
-            }*/
+            
             if (i == loboAleatorio && horaDeComer == true && (cuentaOvejas() > 0)) {
                 moverLoboHastaOvejaObjetivo(i, ovejaObjetivo);
             } else {
@@ -468,8 +437,7 @@ public class MostrarSimulacion extends JFrame {
         }
     }
 
-///////////////////////////////////////////////////////////////////////////// 
-    //autor: jonathan loaiza rosero
+
     public int ovejaMasCercana(int wolf) {
 
         int x1 = losLobos.get(wolf).getX();
@@ -480,7 +448,6 @@ public class MostrarSimulacion extends JFrame {
             int dist = distancia(x1, y1, lasOvejas.get(i).getX(), lasOvejas.get(i).getY());
             if (dist < distanciaOvejaMasCercana) {
                 distanciaOvejaMasCercana = dist;
-                //ovejaMasCercana = lasOvejas.get(i).getId(); 
                 ovejaMasCercana = i;
             }
         }
