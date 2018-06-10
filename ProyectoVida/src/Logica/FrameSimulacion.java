@@ -14,9 +14,9 @@ public class FrameSimulacion extends JFrame {
 	public static JTextField textFieldPasto;
 	public static JTextField textFieldCantidadMaxCesped;
 	public static JTextField textFieldCantidadO;
-	JTextField textFieldComidaO;
+	public static JTextField textFieldComidaO;
 	public static JTextField textFieldVidaO;
-	JTextField textFieldAparearO;
+	public static JTextField textFieldAparearO;
 	public static JTextField textFieldCantidadL;
 	/////////////////////////////////////////////////////////
         // Autor: jonathan loaiza rosero
@@ -168,12 +168,12 @@ public class FrameSimulacion extends JFrame {
 		panelDatos.add(buttonIniciar);
                 textFieldCantidadL.setText("5");
                 textFieldCantidadO.setText("10");
-//                textFieldCantidadMaxCesped.setText("20");
-//                textFieldPasto.setText("10");
-//                textFieldComidaL.setText("5");
-//                textFieldComidaO.setText("10");
-//                textFieldVidaO.setText("5");
-//                textFieldAparearO.setText("10");
+                textFieldCantidadMaxCesped.setText("20");
+                textFieldPasto.setText("10");
+                textFieldComidaL.setText("500");
+                textFieldComidaO.setText("10");
+                textFieldVidaO.setText("500");
+                textFieldAparearO.setText("10");
                 
                 buttonIniciar.addActionListener(new java.awt.event.ActionListener() {
                 public void actionPerformed(java.awt.event.ActionEvent evt) {

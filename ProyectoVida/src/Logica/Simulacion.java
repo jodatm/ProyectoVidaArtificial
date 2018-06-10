@@ -10,6 +10,9 @@ import java.util.*;
 public class Simulacion {
     int randomX;
     int randomY;
+    int randomGenero;
+    //variable Random
+    Random r = new Random();
    
    int randomVejesmaxima;
     
@@ -29,22 +32,44 @@ public class Simulacion {
     }
     
     
-    public ArrayList<Oveja> Oveja(int cantOvejas){
+    public ArrayList<Oveja> Oveja(int cantOvejas, int tiempoVida, int tiempoAparearse){
         for(int i=0; i< cantOvejas;i++){     
             randomX= (int) (Math.random()*(ancho)) + 10;
             randomY= (int) (Math.random()*(alto)) + 10;
             randomVejesmaxima = Integer.parseInt(FrameSimulacion.textFieldVidaO.getText()); 
             if(i%2 == 0){
-                laOveja = new Oveja(i, randomX, randomY,randomVejesmaxima);
+                laOveja = new Oveja(i, randomX, randomY,'0',tiempoVida,tiempoAparearse);
             }
             else{
-                laOveja = new Oveja(i, randomX, randomY,randomVejesmaxima);
+                laOveja = new Oveja(i, randomX, randomY,'0',tiempoVida,tiempoAparearse);
             }            
             Ovejas.add(laOveja);      
         }        
         return Ovejas;        
     }
-
+    
+    
+    /*
+    A la oveja originada de un apareamiento se selecciona su genero de manera aleatoria.
+    */
+    public ArrayList<Oveja> OvejaHija(int cantidadOvejasActual,int cantOvejas, int tiempoVida, int tiempoAparearse){
+        for(int i=0; i< cantOvejas;i++){     
+            randomX= (int) (Math.random()*(ancho)) + 10;
+            randomY= (int) (Math.random()*(alto)) + 10;
+            char[] generoAleatorios = {'M', 'H'};
+            randomGenero = r.nextInt(2); //Selección del genero de manera aleatoria
+            
+            if(i%2 == 0){
+                laOveja = new Oveja(cantidadOvejasActual, randomX, randomY,generoAleatorios[randomGenero],tiempoVida,tiempoAparearse);
+            }
+            else{
+                laOveja = new Oveja(cantidadOvejasActual, randomX, randomY,generoAleatorios[randomGenero],tiempoVida,tiempoAparearse);
+            }            
+            Ovejas.add(laOveja);      
+        }        
+        return Ovejas;        
+    }
+    
     public ArrayList<Lobo> Lobo(int cantLobos) {     
         for(int i=0; i< cantLobos;i++){
             randomX= (int) (Math.random()*(ancho)) + 10;
