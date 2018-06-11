@@ -632,7 +632,7 @@ public class MostrarSimulacion extends JFrame {
                 }else{moverOvejaIndividual(oveja);}
                 break;
             case 4:// Tipo oveja 4. Stephany Rivera, cuando se acerca el tiempo limite de muerte por hambre, 1.5 s
-                if (dist >= 0 && dist <= 20 && lasOvejas.get(oveja).estaViva() == true) {//me puedo comer el pasto
+                if (dist >= 0 && dist <= 20 && lasOvejas.get(oveja).estaViva() == true && lasOvejas.get(oveja).getTiempoSinComer() == (int)(tiempoMaxSinComer/tiempoMaxSinComer)+1/2) {//me puedo comer el pasto
                     elPasto.remove(pasto);
                     lasOvejas.get(oveja).setHoraComer(false);//no tengo que buscar comida
                     lasOvejas.get(oveja).resetTiempoSinComer();//ya no tengo hambre
