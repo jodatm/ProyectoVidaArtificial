@@ -584,7 +584,7 @@ public class MostrarSimulacion extends JFrame {
         int dist = distancia(x1, y1, x2, y2);
         
         switch(lasOvejas.get(oveja).tipoOveja){  
-            case 1:// La oveja egoista, Correra por comida en cuanto le de hambre. Por Michael Palacios 
+            case 1:// La oveja egoista, Correrá por comida en cuanto le de hambre. Por Michael Palacios 
                 if (oveja < lasOvejas.size()) {
                     if (dist >= 0 && dist <= 20 && lasOvejas.get(oveja).estaViva() == true) {//me puedo comer el pasto
                         elPasto.remove(pasto);
@@ -692,12 +692,31 @@ public class MostrarSimulacion extends JFrame {
                     lasOvejas.get(oveja).resetTiempoSinComer();//ya no tengo hambre
                 }else{moverOvejaIndividual(oveja);}
                 break;
-            case 8:
-                if (dist >= 0 && dist <= 20 && lasOvejas.get(oveja).estaViva() == true) {//me puedo comer el pasto
+            case 8: 
+            //Manuel Doncel la oveja con vista de aguila, se come el pasto que esta hasta una  distancia maxima de 50 
+            // y no come hasta que no se aparea
+                if (dist >= 0 && dist <= 50 && lasOvejas.get(oveja).estaViva() == true && lasOvejas.get(oveja).isHoraAparearse()==false) {//me puedo comer el pasto
                     elPasto.remove(pasto);
                     lasOvejas.get(oveja).setHoraComer(false);//no tengo que buscar comida
                     lasOvejas.get(oveja).resetTiempoSinComer();//ya no tengo hambre
-                }else{moverOvejaIndividual(oveja);}
+                    lasOvejas.get(oveja).setX(x2);
+                    lasOvejas.get(oveja).setY(y2);
+                }else{
+                    //if(lasOvejas.get(oveja).isHoraAparearse()==true){
+                        int Sx = (x1 + x2) / 2;
+                        int Sy = (y1 + y2) / 2;
+                        int Sx1 = (x1 + Sx) / 2;
+                        int Sy1 = (y1 + Sy) / 2;
+                        int Sx2 = (x1 + Sx1) / 2;
+                        int Sy2 = (y1 + Sy1) / 2;
+                        lasOvejas.get(oveja).setX(Sx2);
+                        lasOvejas.get(oveja).setY(Sy2);
+                        moverOvejaIndividual(oveja);
+                    //}else{
+                    //moverOvejaIndividual(oveja);
+                    //} 
+                }
+                
                 break;
             case 9:
                 if (dist >= 0 && dist <= 20 && lasOvejas.get(oveja).estaViva() == true) {//me puedo comer el pasto
