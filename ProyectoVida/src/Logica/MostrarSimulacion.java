@@ -599,22 +599,124 @@ public class MostrarSimulacion extends JFrame {
                     }
             }
                 break;
-            case 2:
-                if (dist >= 0 && dist <= 20 && lasOvejas.get(oveja).estaViva() == true) {//me puedo comer el pasto
+                
+                
+            case 2:// Tipo oveja 2 programado por Jheison Peña, solo se alimenta cuando le queda la mitad del tiempo máximo sin alimentarse
+                if (dist >= 0 && dist <= 20 && lasOvejas.get(oveja).estaViva() == true && lasOvejas.get(oveja).getTiempoSinComer() == (int)tiempoMaxSinComer/2) {//me puedo comer el pasto
                     elPasto.remove(pasto);
                     lasOvejas.get(oveja).setHoraComer(false);//no tengo que buscar comida
                     lasOvejas.get(oveja).resetTiempoSinComer();//ya no tengo hambre
-                }else{}
+                }else{
+                    if(lasOvejas.get(oveja).getTiempoSinComer() == (int)tiempoMaxSinComer/2){
+                        int Sx = (x1 + x2) / 2;
+                        int Sy = (y1 + y2) / 2;
+                        int Sx1 = (x1 + Sx) / 2;
+                        int Sy1 = (y1 + Sy) / 2;
+                        int Sx2 = (x1 + Sx1) / 2;
+                        int Sy2 = (y1 + Sy1) / 2;
+                        lasOvejas.get(oveja).setX(Sx2);
+                        lasOvejas.get(oveja).setY(Sy2);
+                    }else{
+                    moverOvejaIndividual(oveja);
+                    }                    
+                }
                 break;
             case 3:
                 if (dist >= 0 && dist <= 20 && lasOvejas.get(oveja).estaViva() == true) {//me puedo comer el pasto
                     elPasto.remove(pasto);
                     lasOvejas.get(oveja).setHoraComer(false);//no tengo que buscar comida
                     lasOvejas.get(oveja).resetTiempoSinComer();//ya no tengo hambre
-                }else{}
+                }else{moverOvejaIndividual(oveja);}
                 break;
+            case 4:
+                if (dist >= 0 && dist <= 20 && lasOvejas.get(oveja).estaViva() == true) {//me puedo comer el pasto
+                    elPasto.remove(pasto);
+                    lasOvejas.get(oveja).setHoraComer(false);//no tengo que buscar comida
+                    lasOvejas.get(oveja).resetTiempoSinComer();//ya no tengo hambre
+                }else{moverOvejaIndividual(oveja);}
+                break;
+            case 5:
+                if (dist >= 0 && dist <= 20 && lasOvejas.get(oveja).estaViva() == true) {//me puedo comer el pasto
+                    elPasto.remove(pasto);
+                    lasOvejas.get(oveja).setHoraComer(false);//no tengo que buscar comida
+                    lasOvejas.get(oveja).resetTiempoSinComer();//ya no tengo hambre
+                }else{moverOvejaIndividual(oveja);}
+                break;
+            case 6:
+                if (dist >= 0 && dist <= 20 && lasOvejas.get(oveja).estaViva() == true) {//me puedo comer el pasto
+                    elPasto.remove(pasto);
+                    lasOvejas.get(oveja).setHoraComer(false);//no tengo que buscar comida
+                    lasOvejas.get(oveja).resetTiempoSinComer();//ya no tengo hambre
+                }else{moverOvejaIndividual(oveja);}
+                break;
+            case 7:
+                if (dist >= 0 && dist <= 20 && lasOvejas.get(oveja).estaViva() == true) {//me puedo comer el pasto
+                    elPasto.remove(pasto);
+                    lasOvejas.get(oveja).setHoraComer(false);//no tengo que buscar comida
+                    lasOvejas.get(oveja).resetTiempoSinComer();//ya no tengo hambre
+                }else{moverOvejaIndividual(oveja);}
+                break;
+            case 8:
+                if (dist >= 0 && dist <= 20 && lasOvejas.get(oveja).estaViva() == true) {//me puedo comer el pasto
+                    elPasto.remove(pasto);
+                    lasOvejas.get(oveja).setHoraComer(false);//no tengo que buscar comida
+                    lasOvejas.get(oveja).resetTiempoSinComer();//ya no tengo hambre
+                }else{moverOvejaIndividual(oveja);}
+                break;
+            case 9:
+                if (dist >= 0 && dist <= 20 && lasOvejas.get(oveja).estaViva() == true) {//me puedo comer el pasto
+                    elPasto.remove(pasto);
+                    lasOvejas.get(oveja).setHoraComer(false);//no tengo que buscar comida
+                    lasOvejas.get(oveja).resetTiempoSinComer();//ya no tengo hambre
+                }else{moverOvejaIndividual(oveja);}
+                break;
+            case 10:
+                if (dist >= 0 && dist <= 20 && lasOvejas.get(oveja).estaViva() == true) {//me puedo comer el pasto
+                    elPasto.remove(pasto);
+                    lasOvejas.get(oveja).setHoraComer(false);//no tengo que buscar comida
+                    lasOvejas.get(oveja).resetTiempoSinComer();//ya no tengo hambre
+                }else{moverOvejaIndividual(oveja);}
+                break;
+            default:
+                moverOvejaIndividual(oveja);
+                
     }
     }
     
+    public void moverOvejaIndividual(int oveja){
+
+      
+            int randomX;
+            int randomY;
+
+            int[] numerosAleatorios = {-1, 1};
+            randomX = r.nextInt(2);
+            randomY = r.nextInt(2);
+
+            /*
+            *Movimientos aleatorios comprobando los limites del frame
+             */
+            if (lasOvejas.get(oveja).estaViva()) {
+                if (numerosAleatorios[randomX] == 1 && numerosAleatorios[randomY] == 1) {
+                    lasOvejas.get(oveja).setX(lasOvejas.get(oveja).getX() + ((lasOvejas.get(oveja).getX() >= 1163) ? -velocidadOvejas : velocidadOvejas));
+                    lasOvejas.get(oveja).setY(lasOvejas.get(oveja).getY() + ((lasOvejas.get(oveja).getY() >= 27) ? -velocidadOvejas : velocidadOvejas));
+                } else if (numerosAleatorios[randomX] == 1 && numerosAleatorios[randomY] == -1) {
+                    lasOvejas.get(oveja).setX(lasOvejas.get(oveja).getX() + ((lasOvejas.get(oveja).getX() >= 1163) ? -velocidadOvejas : velocidadOvejas));
+                    lasOvejas.get(oveja).setY(lasOvejas.get(oveja).getY() - ((lasOvejas.get(oveja).getY() >= 672) ? velocidadOvejas : -velocidadOvejas));
+                } else if (numerosAleatorios[randomX] == -1 && numerosAleatorios[randomY] == -1) {
+                    lasOvejas.get(oveja).setX(lasOvejas.get(oveja).getX() - ((lasOvejas.get(oveja).getX() >= 5) ? velocidadOvejas : -velocidadOvejas));
+                    lasOvejas.get(oveja).setY(lasOvejas.get(oveja).getY() - ((lasOvejas.get(oveja).getY() >= 672) ? velocidadOvejas : -velocidadOvejas));
+                } else if (numerosAleatorios[randomX] == -1 && numerosAleatorios[randomY] == 1) {
+                    lasOvejas.get(oveja).setX(lasOvejas.get(oveja).getX() - ((lasOvejas.get(oveja).getX() >= 5) ? velocidadOvejas : -velocidadOvejas));
+                    lasOvejas.get(oveja).setY(lasOvejas.get(oveja).getY() + ((lasOvejas.get(oveja).getY() >= 27) ? -velocidadOvejas : velocidadOvejas));
+                }
+            }
+        }
     
-}
+        }
+    
+        
+    
+    
+    
+
