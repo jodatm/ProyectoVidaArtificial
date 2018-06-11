@@ -59,6 +59,9 @@ public class MostrarSimulacion extends JFrame {
     int anchoVentana = 1200;
     int altoVetana = 700;
 
+    //rango de acción
+    int rangoOveja10 = 200; //Rango de acción del tipoOveja 10
+    
     //variable Random
     Random r = new Random();
 
@@ -671,11 +674,35 @@ public class MostrarSimulacion extends JFrame {
                 }else{moverOvejaIndividual(oveja);}
                 break;
             case 10:
+                int contador=0;
+                int contadorHembras = 0;
                 if (dist >= 0 && dist <= 20 && lasOvejas.get(oveja).estaViva() == true) {//me puedo comer el pasto
                     elPasto.remove(pasto);
                     lasOvejas.get(oveja).setHoraComer(false);//no tengo que buscar comida
                     lasOvejas.get(oveja).resetTiempoSinComer();//ya no tengo hambre
-                }else{moverOvejaIndividual(oveja);}
+                }else{
+                    for(int k=0;k<lasOvejas.size();k++){
+                        int distanciaTemp = distancia.medirDistancia(lasOvejas.get(oveja).getX(), lasOvejas.get(oveja).getY(), lasOvejas.get(k).getX(), lasOvejas.get(k).getY());
+                        if(distanciaTemp<=rangoOveja10 && lasOvejas.get(oveja).estaViva() == true){
+                            contador+=1;
+                        }
+                        if(lasOvejas.get(k).isHoraComer()&&distanciaTemp<=rangoOveja10&&lasOvejas.get(k).getGenero()=='H' && lasOvejas.get(oveja).estaViva() == true){
+                            contadorHembras+=1;
+                        }
+                    }
+                    if((contador/2)>contadorHembras){ 
+                        int Sx = (x1 + x2) / 2;
+                        int Sy = (y1 + y2) / 2;
+                        int Sx1 = (x1 + Sx) / 2;
+                        int Sy1 = (y1 + Sy) / 2;
+                        int Sx2 = (x1 + Sx1) / 2;
+                        int Sy2 = (y1 + Sy1) / 2;
+                        lasOvejas.get(oveja).setX(Sx2);
+                        lasOvejas.get(oveja).setY(Sy2);
+                    }else{
+                        moverOvejaIndividual(oveja);
+                    }      
+                }
                 break;
             default:
                 moverOvejaIndividual(oveja);
