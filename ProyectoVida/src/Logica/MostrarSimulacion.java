@@ -639,11 +639,19 @@ public class MostrarSimulacion extends JFrame {
                 }else{moverOvejaIndividual(oveja);}
                 break;
             case 5:
-                if (dist >= 0 && dist <= 20 && lasOvejas.get(oveja).estaViva() == true) {//me puedo comer el pasto
+                // La oveja cachonda come si el estado de aparearse es true. Santiago Romero
+                if (dist >= 0 && dist <= 20 && lasOvejas.get(oveja).estaViva() == true && lasOvejas.get(oveja).isHoraAparearse()==true) {//me puedo comer el pasto
                     elPasto.remove(pasto);
                     lasOvejas.get(oveja).setHoraComer(false);//no tengo que buscar comida
                     lasOvejas.get(oveja).resetTiempoSinComer();//ya no tengo hambre
-                }else{moverOvejaIndividual(oveja);}
+                }else{int Sx = (x1 + x2) / 2;
+                        int Sy = (y1 + y2) / 2;
+                        int Sx1 = (x1 + Sx) / 2;
+                        int Sy1 = (y1 + Sy) / 2;
+                        int Sx2 = (x1 + Sx1) / 2;
+                        int Sy2 = (y1 + Sy1) / 2;
+                        lasOvejas.get(oveja).setX(Sx2);
+                        lasOvejas.get(oveja).setY(Sy2);}
                 break;
             case 6:
                 if (dist >= 0 && dist <= 20 && lasOvejas.get(oveja).estaViva() == true) {//me puedo comer el pasto
