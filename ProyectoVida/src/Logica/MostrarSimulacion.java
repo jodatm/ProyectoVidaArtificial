@@ -335,7 +335,7 @@ public class MostrarSimulacion extends JFrame {
     
     public void moverOveja() {
         for (int i = 0; i < lasOvejas.size(); i++) {
-            
+
            
         if ( lasOvejas.get(i).isHoraComer() && (elPasto.size()>0)&& lasOvejas.get(i).estaViva()) {
             alimentarse(i, pastoMasCercano(i));
@@ -569,39 +569,51 @@ public class MostrarSimulacion extends JFrame {
     
     /**
      * 
-     * @author Michael Palacios
-     * @param oveja punto de partida
-     * @param pasto objetivo
+     * Simula los comportamientos de alimentacion de una oveja segun su tipo
+     * @param oveja punto de partida. la oveja que busca comida
+     * @param pasto objetivo el pasto que hay disponible
      */
-    public void alimentarse(int oveja, int pasto){
-          
-        if (oveja < lasOvejas.size()) {
-            
-            int x1 = lasOvejas.get(oveja).getX();
-            int y1 = lasOvejas.get(oveja).getY();
-            int x2 = elPasto.get(pasto).getX();
-            int y2 = elPasto.get(pasto).getY();
-
-            int dist = distancia(x1, y1, x2, y2);
-            if (dist >= 0 && dist <= 20 && lasOvejas.get(oveja).estaViva() == true) {
-                
-                elPasto.remove(pasto);
-                
-                lasOvejas.get(oveja).setHoraComer(false);
-                lasOvejas.get(oveja).resetTiempoSinComer();
-//calculo del punto medio entre dos puntos.
-
-            } else {
-                int Sx = (x1 + x2) / 2;
-                int Sy = (y1 + y2) / 2;
-                int Sx1 = (x1 + Sx) / 2;
-                int Sy1 = (y1 + Sy) / 2;
-                int Sx2 = (x1 + Sx1) / 2;
-                int Sy2 = (y1 + Sy1) / 2;
-                lasOvejas.get(oveja).setX(Sx2);
-                lasOvejas.get(oveja).setY(Sy2);
+    public void alimentarse(int oveja, int pasto){//este metodo ya esta en uso, utiliza el pasto mas cercano y la oveja que tiene hambre
+        int x1 = lasOvejas.get(oveja).getX();
+        int y1 = lasOvejas.get(oveja).getY();
+        int x2 = elPasto.get(pasto).getX();
+        int y2 = elPasto.get(pasto).getY();
+        int dist = distancia(x1, y1, x2, y2);
+        
+        switch(lasOvejas.get(oveja).tipoOveja){  
+            case 1:// La oveja egoista, Correra por comida en cuanto le de hambre. Por Michael Palacios 
+                if (oveja < lasOvejas.size()) {
+                    if (dist >= 0 && dist <= 20 && lasOvejas.get(oveja).estaViva() == true) {//me puedo comer el pasto
+                        elPasto.remove(pasto);
+                        lasOvejas.get(oveja).setHoraComer(false);//no tengo que buscar comida
+                        lasOvejas.get(oveja).resetTiempoSinComer();//ya no tengo hambre
+                    } else {
+                        int Sx = (x1 + x2) / 2;
+                        int Sy = (y1 + y2) / 2;
+                        int Sx1 = (x1 + Sx) / 2;
+                        int Sy1 = (y1 + Sy) / 2;
+                        int Sx2 = (x1 + Sx1) / 2;
+                        int Sy2 = (y1 + Sy1) / 2;
+                        lasOvejas.get(oveja).setX(Sx2);
+                        lasOvejas.get(oveja).setY(Sy2);
+                    }
             }
-        }
+                break;
+            case 2:
+                if (dist >= 0 && dist <= 20 && lasOvejas.get(oveja).estaViva() == true) {//me puedo comer el pasto
+                    elPasto.remove(pasto);
+                    lasOvejas.get(oveja).setHoraComer(false);//no tengo que buscar comida
+                    lasOvejas.get(oveja).resetTiempoSinComer();//ya no tengo hambre
+                }else{}
+                break;
+            case 3:
+                if (dist >= 0 && dist <= 20 && lasOvejas.get(oveja).estaViva() == true) {//me puedo comer el pasto
+                    elPasto.remove(pasto);
+                    lasOvejas.get(oveja).setHoraComer(false);//no tengo que buscar comida
+                    lasOvejas.get(oveja).resetTiempoSinComer();//ya no tengo hambre
+                }else{}
+                break;
+    }
     }
     
     
