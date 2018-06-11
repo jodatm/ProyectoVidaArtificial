@@ -541,8 +541,8 @@ public class MostrarSimulacion extends JFrame {
                 int Sy1 = (y1 + Sy) / 2;
                 int Sx2 = (x1 + Sx1) / 2;
                 int Sy2 = (y1 + Sy1) / 2;
-                losLobos.get(lobo).setX((int)(Sx2*.25));
-                losLobos.get(lobo).setY((int)(Sy2*.25));
+                losLobos.get(lobo).setX(Sx2);
+                losLobos.get(lobo).setY(Sy2);
             }
         }
     }
