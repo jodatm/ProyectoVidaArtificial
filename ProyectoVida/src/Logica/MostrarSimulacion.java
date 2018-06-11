@@ -165,7 +165,7 @@ public class MostrarSimulacion extends JFrame {
         hiloSegundos = new Thread(new Runnable() {
 
             int segundosEjecucion; // hace las vecs de segundero
-            int contador = 0; // cuanta cuantas veces se detiene el hilo
+            int contador = 0; // cuenta cuantas veces se detiene el hilo
 
             @Override
             public void run() {
@@ -226,6 +226,24 @@ public class MostrarSimulacion extends JFrame {
                                 }
 
                             }
+                            
+                            
+                            //////////////////////////////////////////////////////////////////////////
+                            if (segundosEjecucion % 10 == 0) {//cada X10 segundos se eliminan los cadaveres de las ovejas del pasto (en este caso 10 segundos)
+
+                                //si la oveja esta muerta y han pasado de 5 a 10 segundos, quitarlas
+                                for (int i = 0; i < lasOvejas.size(); i++) {
+                                    if ( lasOvejas.get(i).estaViva()){
+                                        
+                                    }else{
+                                        lasOvejas.remove(i);
+                                    }
+                                }
+
+                            }
+                            //////////////////////////////
+                            
+                            
 
                             comprobarVidaOvejas();
                         }
