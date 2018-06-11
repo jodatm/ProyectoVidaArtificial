@@ -32,8 +32,8 @@ public class MostrarSimulacion extends JFrame {
     Image pasto = new ImageIcon(getClass().getResource("/img/pasto.png")).getImage();
     Image fondo = new ImageIcon(getClass().getResource("/img/fondo.png")).getImage();
 
-    Image ovejaMuerta = new ImageIcon(getClass().getResource("/img/ovejaRip.png")).getImage();
-    Image ovejoMuerto = new ImageIcon(getClass().getResource("/img/ovejoRip.png")).getImage();
+    Image ovejaMuerta = new ImageIcon(getClass().getResource("/img/ovejaRip_1.png")).getImage();
+    Image ovejoMuerto = new ImageIcon(getClass().getResource("/img/ovejoRip_1.png")).getImage();
 
     int cantOvejas;
     int cantLobos;
@@ -635,8 +635,8 @@ public class MostrarSimulacion extends JFrame {
                     }                    
                 }
                 break;
-            case 3:
-                if (dist >= 0 && dist <= 20 && lasOvejas.get(oveja).estaViva() == true) {//me puedo comer el pasto
+            case 3://tipo de  oveja 3: Jhojan Ramos, nunca  come esta a dieta  
+                if (false) {//me puedo comer el pasto
                     elPasto.remove(pasto);
                     lasOvejas.get(oveja).setHoraComer(false);//no tengo que buscar comida
                     lasOvejas.get(oveja).resetTiempoSinComer();//ya no tengo hambre
