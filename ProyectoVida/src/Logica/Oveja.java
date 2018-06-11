@@ -1,5 +1,8 @@
 package Logica;
 
+
+import java.util.Random;
+
 /**
  *
  * @author Santiago Romero
@@ -15,8 +18,12 @@ public class Oveja {
     boolean horaAparearse;
     boolean viva = true;
     int vejesMaxima;
-
-    public Oveja(int id, int x, int y, char genero, int vejesMaxima,int tiempoAparearse){
+    boolean horaComer;
+    int tiempoSinComer;
+    int tiempoBuscarComida;
+    private Random r;
+    
+    public Oveja(int id, int x, int y, char genero, int vejesMaxima,int tiempoAparearse, int tiempoMaxComida){
         this.id = id;
         this.x = x;
         this.y = y;
@@ -25,6 +32,10 @@ public class Oveja {
         this.tiempoAparearse = tiempoAparearse;
         this.horaAparearse = false;
         this.vejesMaxima = vejesMaxima;
+        this.horaComer=false;
+        tiempoSinComer=0;
+        r= new Random();
+        setTiempoBuscarComida(r.nextInt(tiempoMaxComida-1));
     }
 
     public int getId() {
@@ -98,8 +109,32 @@ public class Oveja {
     public void setVejesMaxima(int vejesMaxima) {
         this.vejesMaxima = vejesMaxima;
     }
+
+    public boolean isHoraComer() {
+        horaComer = tiempoSinComer>=tiempoBuscarComida;
+        return horaComer;
+    }
+
+    public void setHoraComer(boolean tiempoComer) {
+        this.horaComer = tiempoComer;
+    }
+
+    public int getTiempoSinComer() {
+        
+        return tiempoSinComer;
+    }
+
+    public void resetTiempoSinComer() {
+        this.tiempoSinComer = 0;
+    }
     
-    
-   
+    public void masHambre(){
+        this.tiempoSinComer++;
+    }
+
+    private void setTiempoBuscarComida(int tiempoBuscarComida) {
+        this.tiempoBuscarComida = tiempoBuscarComida;
+    }
+ 
 }
 

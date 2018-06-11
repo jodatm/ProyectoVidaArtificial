@@ -32,16 +32,16 @@ public class Simulacion {
     }
     
     
-    public ArrayList<Oveja> Oveja(int cantOvejas, int tiempoVida, int tiempoAparearse){
+    public ArrayList<Oveja> Oveja(int cantOvejas, int tiempoVida, int tiempoAparearse, int tiempoMaxComida){
         for(int i=0; i< cantOvejas;i++){     
             randomX= (int) (Math.random()*(ancho)) + 10;
             randomY= (int) (Math.random()*(alto)) + 10;
             randomVejesmaxima = Integer.parseInt(FrameSimulacion.textFieldVidaO.getText()); 
             if(i%2 == 0){
-                laOveja = new Oveja(i, randomX, randomY,'0',tiempoVida,tiempoAparearse);
+                laOveja = new Oveja(i, randomX, randomY,'0',tiempoVida,tiempoAparearse, tiempoMaxComida);
             }
             else{
-                laOveja = new Oveja(i, randomX, randomY,'0',tiempoVida,tiempoAparearse);
+                laOveja = new Oveja(i, randomX, randomY,'0',tiempoVida,tiempoAparearse,tiempoMaxComida);
             }            
             Ovejas.add(laOveja);      
         }        
@@ -52,7 +52,7 @@ public class Simulacion {
     /*
     A la oveja originada de un apareamiento se selecciona su genero de manera aleatoria.
     */
-    public ArrayList<Oveja> OvejaHija(int cantidadOvejasActual,int cantOvejas, int tiempoVida, int tiempoAparearse){
+    public ArrayList<Oveja> OvejaHija(int cantidadOvejasActual,int cantOvejas, int tiempoVida, int tiempoAparearse,int tiempoMaxComida){
         for(int i=0; i< cantOvejas;i++){     
             randomX= (int) (Math.random()*(ancho)) + 10;
             randomY= (int) (Math.random()*(alto)) + 10;
@@ -60,10 +60,10 @@ public class Simulacion {
             randomGenero = r.nextInt(2); //Selección del genero de manera aleatoria
             
             if(i%2 == 0){
-                laOveja = new Oveja(cantidadOvejasActual, randomX, randomY,generoAleatorios[randomGenero],tiempoVida,tiempoAparearse);
+                laOveja = new Oveja(cantidadOvejasActual, randomX, randomY,generoAleatorios[randomGenero],tiempoVida,tiempoAparearse, tiempoMaxComida);
             }
             else{
-                laOveja = new Oveja(cantidadOvejasActual, randomX, randomY,generoAleatorios[randomGenero],tiempoVida,tiempoAparearse);
+                laOveja = new Oveja(cantidadOvejasActual, randomX, randomY,generoAleatorios[randomGenero],tiempoVida,tiempoAparearse,tiempoMaxComida);
             }            
             Ovejas.add(laOveja);      
         }        
