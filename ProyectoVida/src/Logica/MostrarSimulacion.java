@@ -335,6 +335,8 @@ public class MostrarSimulacion extends JFrame {
     
     public void moverOveja() {
         for (int i = 0; i < lasOvejas.size(); i++) {
+            
+           
         if ( lasOvejas.get(i).isHoraComer() && (elPasto.size()>0)&& lasOvejas.get(i).estaViva()) {
             alimentarse(i, pastoMasCercano(i));
         }else{
@@ -452,7 +454,7 @@ public class MostrarSimulacion extends JFrame {
                         */
                         if (distanciaPareja >= 0 && distanciaPareja <= visionOvejas && (lasOvejas.get(j).estaViva() && lasOvejas.get(ovejaMacho).estaViva())) {
 
-                            reproducirOvejas();
+                            reproducirOvejas(lasOvejas.get(ovejaMacho).getTipoOveja(),lasOvejas.get(j).getTipoOveja());
                             lasOvejas.get(j).setHoraAparearse(false); // cambia el estado de apareamiento a falso
                             lasOvejas.get(ovejaMacho).setHoraAparearse(false); // cambia el estado de apareamiento a falso
                             lasOvejas.get(j).setTiempoAparearse(tiempoAparearse); //se restablece el tiempo de apareamiento
@@ -535,8 +537,8 @@ public class MostrarSimulacion extends JFrame {
     Método que crea una nueva oveja en el ambiente después que una hembra y un macho se encuentran para aparearse.
     1- El género de la oveja se escoge aleatoriamente.
      */
-    public void reproducirOvejas() {
-        lasOvejas = laSimulacion.OvejaHija(lasOvejas.size(), 1, tiempoVidaOvejas, tiempoAparearse,tiempoMaxSinComer);
+    public void reproducirOvejas(int tipoOvejaMacho, int tipoOvejaHembra) {
+        lasOvejas = laSimulacion.OvejaHija(lasOvejas.size(), 1, tiempoVidaOvejas, tiempoAparearse, tiempoMaxSinComer,tipoOvejaMacho,tipoOvejaHembra);
     }
 
     public void moverLoboHastaOvejaObjetivo(int lobo, int oveja) {
