@@ -42,7 +42,7 @@ public class MostrarSimulacion extends JFrame {
 
     int tiempoVidaOvejas;
     int tiempoMaxSinComer;
-    int visionOvejas = 200; // Máxima distancia de visión de las ovejas para detectar pareja o lobos
+    int visionOvejas = 500; // Máxima distancia de visión de las ovejas para detectar pareja o lobos
     
     boolean horaDeComer = false;
     int tiempoLobosAlimento;     //guarda la cantidad de tiempo que tiene que transcurrir para que un lobo se coma una oveja
@@ -730,8 +730,18 @@ public class MostrarSimulacion extends JFrame {
                         int Sy1 = (y1 + Sy) / 2;
                         int Sx2 = (x1 + Sx1) / 2;
                         int Sy2 = (y1 + Sy1) / 2;
-                        lasOvejas.get(oveja).setX(Sx2);
-                        lasOvejas.get(oveja).setY(Sy2);
+                        int Sx3 = (x1 + Sx2) / 2;
+                        int Sy3 = (y1 + Sy2) / 2;
+                        int Sx4 = (x1 + Sx3) / 2;
+                        int Sy4 = (y1 + Sy3) / 2;
+                        lasOvejas.get(oveja).setX(Sx4);
+                        lasOvejas.get(oveja).setY(Sy4);
+                        if(distancia(lasOvejas.get(oveja).getX(), lasOvejas.get(oveja).getY(), x2, y2)<=50){
+                            int nuevox = (lasOvejas.get(oveja).getX()+ x2) / 2;
+                            int nuevoy = (lasOvejas.get(oveja).getY() + y2) / 2;
+                            lasOvejas.get(oveja).setX(nuevox);
+                            lasOvejas.get(oveja).setY(nuevoy);
+                        }
                     }else{
                         moverOvejaIndividual(oveja);
                     }      
