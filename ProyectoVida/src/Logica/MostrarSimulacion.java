@@ -597,8 +597,19 @@ public class MostrarSimulacion extends JFrame {
                         int Sy1 = (y1 + Sy) / 2;
                         int Sx2 = (x1 + Sx1) / 2;
                         int Sy2 = (y1 + Sy1) / 2;
-                        lasOvejas.get(oveja).setX(Sx2);
-                        lasOvejas.get(oveja).setY(Sy2);
+                        int Sx3 = (x1 + Sx2) / 2;
+                        int Sy3 = (y1 + Sy2) / 2;
+                        int Sx4 = (x1 + Sx3) / 2;
+                        int Sy4 = (y1 + Sy3) / 2;
+                        lasOvejas.get(oveja).setX(Sx4);
+                        lasOvejas.get(oveja).setY(Sy4);
+                        if(distancia(lasOvejas.get(oveja).getX(), lasOvejas.get(oveja).getY(), x2, y2)<=50){
+                            int nuevox = (lasOvejas.get(oveja).getX()+ x2) / 2;
+                            int nuevoy = (lasOvejas.get(oveja).getY() + y2) / 2;
+                            lasOvejas.get(oveja).setX(nuevox);
+                            lasOvejas.get(oveja).setY(nuevoy);
+                        }
+
                     }
             }
                 break;
@@ -760,6 +771,22 @@ public class MostrarSimulacion extends JFrame {
                     lasOvejas.get(oveja).setY(lasOvejas.get(oveja).getY() + ((lasOvejas.get(oveja).getY() >= 27) ? -velocidadOvejas : velocidadOvejas));
                 }
             }
+        }
+    
+        public void moverseHacia(int ref,int x1,int y1, int x2, int y2){
+            while(x1!=x2||y1!=y2){
+            if(x1<x2){
+                x1++;
+            }else{
+                x1--;
+            }
+            if(y1<y2){
+                y1++;
+            }else{
+                y1--;
+            }
+            lasOvejas.get(ref).setX(x1);
+            lasOvejas.get(ref).setX(y1);}
         }
     
         }

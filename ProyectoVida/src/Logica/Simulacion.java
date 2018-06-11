@@ -36,12 +36,13 @@ public class Simulacion {
         for(int i=0; i< cantOvejas;i++){     
             randomX= (int) (Math.random()*(ancho)) + 10;
             randomY= (int) (Math.random()*(alto)) + 10;
-            randomVejesmaxima = Integer.parseInt(FrameSimulacion.textFieldVidaO.getText()); 
+            randomVejesmaxima = Integer.parseInt(FrameSimulacion.textFieldVidaO.getText());
+            int tipo= r.nextInt(10)+1;
             if(i%2 == 0){
-                laOveja = new Oveja(i, randomX, randomY,'0',tiempoVida,tiempoAparearse, tiempoMaxComida,(i+1));
+                laOveja = new Oveja(i, randomX, randomY,'0',tiempoVida,tiempoAparearse, tiempoMaxComida,tipo);
             }
             else{
-                laOveja = new Oveja(i, randomX, randomY,'0',tiempoVida,tiempoAparearse,tiempoMaxComida,(i+1));
+                laOveja = new Oveja(i, randomX, randomY,'0',tiempoVida,tiempoAparearse,tiempoMaxComida,tipo);
             }            
             Ovejas.add(laOveja);      
         }        
