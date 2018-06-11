@@ -13,7 +13,7 @@ public class MostrarSimulacion extends JFrame {
     ArrayList<Lobo> losLobos = new ArrayList<>();
     ArrayList<Pasto> elPasto = new ArrayList<>();
     Distancia distancia = new Distancia();
-
+    
     Thread hiloUno;
     int ovejaMacho = 0;
     Thread hiloSegundos; // este hilo controla el contador de segundos de la simulacion global
@@ -43,11 +43,12 @@ public class MostrarSimulacion extends JFrame {
     int tiempoVidaOvejas;
     int tiempoMaxSinComer;
     int visionOvejas = 200; // Máxima distancia de visión de las ovejas para detectar pareja o lobos
-
+    
     boolean horaDeComer = false;
     int tiempoLobosAlimento;     //guarda la cantidad de tiempo que tiene que transcurrir para que un lobo se coma una oveja
     int ovejaObjetivo;
     int loboAleatorio;
+
 
     int cantPasto = 15; //cantidad de pasto que quirenque aparezca cada X tiempo
     int maxCantidadPasto; //cantidad máxima de pasto en el ambiente
@@ -72,10 +73,10 @@ public class MostrarSimulacion extends JFrame {
 
         tiempoVidaOvejas = Integer.parseInt(FrameSimulacion.textFieldVidaO.getText());
         tiempoAparearse = Integer.parseInt(FrameSimulacion.textFieldAparearO.getText());
-        tiempoMaxSinComer = Integer.parseInt(FrameSimulacion.textFieldComidaO.getText());
+        tiempoMaxSinComer= Integer.parseInt(FrameSimulacion.textFieldComidaO.getText());
         tiempoLobosAlimento = Integer.parseInt(FrameSimulacion.textFieldComidaL.getText());  // se obtiene el tiempo apartir un lobo busca su comida
 
-        lasOvejas = laSimulacion.Oveja(cantOvejas, tiempoVidaOvejas, tiempoAparearse, tiempoMaxSinComer);
+        lasOvejas = laSimulacion.Oveja(cantOvejas, tiempoVidaOvejas, tiempoAparearse,tiempoMaxSinComer);
         losLobos = laSimulacion.Lobo(cantLobos);
         elPasto = laSimulacion.Pasto(cantPasto);
         setTitle("Lobos y Ovejas");
@@ -189,8 +190,10 @@ public class MostrarSimulacion extends JFrame {
                             for (int i = 0; i < lasOvejas.size(); i++) {
                                 //Alimento
                                 lasOvejas.get(i).masHambre();
-
+                                
                                 //fin Alimento
+                                
+                                
                                 cantidadOvejas.setText("Número de ovejas: " + String.valueOf(cuentaOvejas()));
                                 int auxHoraAparearse = lasOvejas.get(i).getTiempoAparearse(); // Variable que almacena el tiempo de apareamiento de cada oveja
 
@@ -223,24 +226,6 @@ public class MostrarSimulacion extends JFrame {
                                 }
 
                             }
-
-                            
-                            //////////////////////////////////////////////////////////////////////////
-                            if (segundosEjecucion % 10 == 0) {//cada X10 segundos se eliminan los cadaveres de las ovejas del pasto (en este caso 10 segundos)
-
-                                //si la oveja esta muerta y han pasado de 5 a 10 segundos, quitarlas
-                                for (int i = 0; i < lasOvejas.size(); i++) {
-                                    if ( lasOvejas.get(i).estaViva()){
-                                        
-                                    }else{
-                                        lasOvejas.remove(i);
-                                    }
-                                }
-
-                            }
-                            //////////////////////////////
-                            
-                            
 
                             comprobarVidaOvejas();
                         }
@@ -328,43 +313,39 @@ public class MostrarSimulacion extends JFrame {
     public void movimiento() {
         hiloSegundos.start();// inicia el hilo principal
     }
-
+    
+    
     public void moverOveja() {
         for (int i = 0; i < lasOvejas.size(); i++) {
-            
-            
-                System.out.println("ID oveja: "+lasOvejas.get(i).getId()+" Tipo Oveja: "+lasOvejas.get(i).getTipoOveja());
-            
-            
-            if (lasOvejas.get(i).isHoraComer() && (elPasto.size() > 0) && lasOvejas.get(i).estaViva()) {
-                alimentarse(i, pastoMasCercano(i));
-            } else {
-                int randomX;
-                int randomY;
+        if ( lasOvejas.get(i).isHoraComer() && (elPasto.size()>0)&& lasOvejas.get(i).estaViva()) {
+            alimentarse(i, pastoMasCercano(i));
+        }else{
+            int randomX;
+            int randomY;
 
-                int[] numerosAleatorios = {-1, 1};
-                randomX = r.nextInt(2);
-                randomY = r.nextInt(2);
+            int[] numerosAleatorios = {-1, 1};
+            randomX = r.nextInt(2);
+            randomY = r.nextInt(2);
 
-                /*
+            /*
             *Movimientos aleatorios comprobando los limites del frame
-                 */
-                if (lasOvejas.get(i).estaViva()) {
-                    if (numerosAleatorios[randomX] == 1 && numerosAleatorios[randomY] == 1) {
-                        lasOvejas.get(i).setX(lasOvejas.get(i).getX() + ((lasOvejas.get(i).getX() >= 1163) ? -velocidadOvejas : velocidadOvejas));
-                        lasOvejas.get(i).setY(lasOvejas.get(i).getY() + ((lasOvejas.get(i).getY() >= 27) ? -velocidadOvejas : velocidadOvejas));
-                    } else if (numerosAleatorios[randomX] == 1 && numerosAleatorios[randomY] == -1) {
-                        lasOvejas.get(i).setX(lasOvejas.get(i).getX() + ((lasOvejas.get(i).getX() >= 1163) ? -velocidadOvejas : velocidadOvejas));
-                        lasOvejas.get(i).setY(lasOvejas.get(i).getY() - ((lasOvejas.get(i).getY() >= 672) ? velocidadOvejas : -velocidadOvejas));
-                    } else if (numerosAleatorios[randomX] == -1 && numerosAleatorios[randomY] == -1) {
-                        lasOvejas.get(i).setX(lasOvejas.get(i).getX() - ((lasOvejas.get(i).getX() >= 5) ? velocidadOvejas : -velocidadOvejas));
-                        lasOvejas.get(i).setY(lasOvejas.get(i).getY() - ((lasOvejas.get(i).getY() >= 672) ? velocidadOvejas : -velocidadOvejas));
-                    } else if (numerosAleatorios[randomX] == -1 && numerosAleatorios[randomY] == 1) {
-                        lasOvejas.get(i).setX(lasOvejas.get(i).getX() - ((lasOvejas.get(i).getX() >= 5) ? velocidadOvejas : -velocidadOvejas));
-                        lasOvejas.get(i).setY(lasOvejas.get(i).getY() + ((lasOvejas.get(i).getY() >= 27) ? -velocidadOvejas : velocidadOvejas));
-                    }
+             */
+            if (lasOvejas.get(i).estaViva()) {
+                if (numerosAleatorios[randomX] == 1 && numerosAleatorios[randomY] == 1) {
+                    lasOvejas.get(i).setX(lasOvejas.get(i).getX() + ((lasOvejas.get(i).getX() >= 1163) ? -velocidadOvejas : velocidadOvejas));
+                    lasOvejas.get(i).setY(lasOvejas.get(i).getY() + ((lasOvejas.get(i).getY() >= 27) ? -velocidadOvejas : velocidadOvejas));
+                } else if (numerosAleatorios[randomX] == 1 && numerosAleatorios[randomY] == -1) {
+                    lasOvejas.get(i).setX(lasOvejas.get(i).getX() + ((lasOvejas.get(i).getX() >= 1163) ? -velocidadOvejas : velocidadOvejas));
+                    lasOvejas.get(i).setY(lasOvejas.get(i).getY() - ((lasOvejas.get(i).getY() >= 672) ? velocidadOvejas : -velocidadOvejas));
+                } else if (numerosAleatorios[randomX] == -1 && numerosAleatorios[randomY] == -1) {
+                    lasOvejas.get(i).setX(lasOvejas.get(i).getX() - ((lasOvejas.get(i).getX() >= 5) ? velocidadOvejas : -velocidadOvejas));
+                    lasOvejas.get(i).setY(lasOvejas.get(i).getY() - ((lasOvejas.get(i).getY() >= 672) ? velocidadOvejas : -velocidadOvejas));
+                } else if (numerosAleatorios[randomX] == -1 && numerosAleatorios[randomY] == 1) {
+                    lasOvejas.get(i).setX(lasOvejas.get(i).getX() - ((lasOvejas.get(i).getX() >= 5) ? velocidadOvejas : -velocidadOvejas));
+                    lasOvejas.get(i).setY(lasOvejas.get(i).getY() + ((lasOvejas.get(i).getY() >= 27) ? -velocidadOvejas : velocidadOvejas));
                 }
             }
+        }
         }
     }
 
@@ -385,6 +366,7 @@ public class MostrarSimulacion extends JFrame {
     public void moverLobo() {
         for (int i = 0; i < losLobos.size(); i++) {
 
+            
             if (i == loboAleatorio && horaDeComer == true && (cuentaOvejas() > 0)) {
                 moverLoboHastaOvejaObjetivo(i, ovejaObjetivo);
             } else {
@@ -446,13 +428,13 @@ public class MostrarSimulacion extends JFrame {
                     if (lasOvejas.get(j).getGenero() == 'H' && lasOvejas.get(j).isHoraAparearse() == true && j < lasOvejas.size() && ovejaMacho < lasOvejas.size()) {
 
                         int distanciaPareja = distancia.medirDistancia(lasOvejas.get(ovejaMacho).getX(), lasOvejas.get(ovejaMacho).getY(), lasOvejas.get(j).getX(), lasOvejas.get(j).getY());
-
+                        
                         /*
                         La oveja macho tiene una vision de x distancía, si la hembra esta a esa distancia, se aparean.
-                         */
+                        */
                         if (distanciaPareja >= 0 && distanciaPareja <= visionOvejas && (lasOvejas.get(j).estaViva() && lasOvejas.get(ovejaMacho).estaViva())) {
 
-                            reproducirOvejas(lasOvejas.get(ovejaMacho).getTipoOveja(),lasOvejas.get(j).getTipoOveja());
+                            reproducirOvejas();
                             lasOvejas.get(j).setHoraAparearse(false); // cambia el estado de apareamiento a falso
                             lasOvejas.get(ovejaMacho).setHoraAparearse(false); // cambia el estado de apareamiento a falso
                             lasOvejas.get(j).setTiempoAparearse(tiempoAparearse); //se restablece el tiempo de apareamiento
@@ -466,6 +448,7 @@ public class MostrarSimulacion extends JFrame {
             }
         }
     }
+
 
     public int ovejaMasCercana(int wolf) {
 
@@ -482,13 +465,13 @@ public class MostrarSimulacion extends JFrame {
         }
         return ovejaMasCercana;
     }
-
+    
     public int pastoMasCercano(int oveja) {
 
         int x1 = lasOvejas.get(oveja).getX();
         int y1 = lasOvejas.get(oveja).getY();
-        int pastoMasCercano = 0;
-        int distanciaPastpMasCercano = 2000;
+        int pastoMasCercano = 0;                                         
+        int distanciaPastpMasCercano = 2000;                               
         for (int i = 0; i < elPasto.size(); i++) {
             int dist = distancia(x1, y1, elPasto.get(i).getX(), elPasto.get(i).getY());
             if (dist < distanciaPastpMasCercano) {
@@ -498,7 +481,7 @@ public class MostrarSimulacion extends JFrame {
         }
         return pastoMasCercano;
     }
-
+    
     public int distancia(int x1, int y1, int x2, int y2) {
         int Dx = x2 - x1;
         int Dy = y2 - y1;                             //clasica formula de la distancia entre dos puntos. 
@@ -515,8 +498,8 @@ public class MostrarSimulacion extends JFrame {
             int auxTiempoVida = lasOvejas.get(i).getVejesMaxima();
             lasOvejas.get(i).setVejesMaxima(auxTiempoVida - 1);
             // System.out.println("Oveja " + lasOvejas.get(i).getId() + " vida: " + lasOvejas.get(i).getVejesMaxima());
-            if (lasOvejas.get(i).getTiempoSinComer() > tiempoMaxSinComer) {
-                lasOvejas.get(i).matarOveja();
+            if(lasOvejas.get(i).getTiempoSinComer()>tiempoMaxSinComer){
+                                    lasOvejas.get(i).matarOveja();
             }
             if (lasOvejas.get(i).getVejesMaxima() == 0) {
                 lasOvejas.get(i).matarOveja();
@@ -529,12 +512,13 @@ public class MostrarSimulacion extends JFrame {
         }
     }
 
+   
     /*
     Método que crea una nueva oveja en el ambiente después que una hembra y un macho se encuentran para aparearse.
     1- El género de la oveja se escoge aleatoriamente.
      */
-    public void reproducirOvejas(int tipoOvejaMacho, int tipoOvejaHembra) {
-        lasOvejas = laSimulacion.OvejaHija(lasOvejas.size(), 1, tiempoVidaOvejas, tiempoAparearse, tiempoMaxSinComer,tipoOvejaMacho,tipoOvejaHembra);
+    public void reproducirOvejas() {
+        lasOvejas = laSimulacion.OvejaHija(lasOvejas.size(), 1, tiempoVidaOvejas, tiempoAparearse,tiempoMaxSinComer);
     }
 
     public void moverLoboHastaOvejaObjetivo(int lobo, int oveja) {
@@ -562,27 +546,27 @@ public class MostrarSimulacion extends JFrame {
             }
         }
     }
-
+    
     /**
-     *
+     * 
      * @author Michael Palacios
      * @param oveja punto de partida
      * @param pasto objetivo
      */
-    public void alimentarse(int oveja, int pasto) {
-
+    public void alimentarse(int oveja, int pasto){
+          
         if (oveja < lasOvejas.size()) {
-
+            
             int x1 = lasOvejas.get(oveja).getX();
             int y1 = lasOvejas.get(oveja).getY();
             int x2 = elPasto.get(pasto).getX();
             int y2 = elPasto.get(pasto).getY();
 
             int dist = distancia(x1, y1, x2, y2);
-
             if (dist >= 0 && dist <= 20 && lasOvejas.get(oveja).estaViva() == true) {
-
+                
                 elPasto.remove(pasto);
+                
                 lasOvejas.get(oveja).setHoraComer(false);
                 lasOvejas.get(oveja).resetTiempoSinComer();
 //calculo del punto medio entre dos puntos.
@@ -594,11 +578,11 @@ public class MostrarSimulacion extends JFrame {
                 int Sy1 = (y1 + Sy) / 2;
                 int Sx2 = (x1 + Sx1) / 2;
                 int Sy2 = (y1 + Sy1) / 2;
-
                 lasOvejas.get(oveja).setX(Sx2);
                 lasOvejas.get(oveja).setY(Sy2);
             }
         }
     }
-
+    
+    
 }
