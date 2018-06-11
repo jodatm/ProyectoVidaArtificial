@@ -21,9 +21,10 @@ public class Oveja {
     boolean horaComer;
     int tiempoSinComer;
     int tiempoBuscarComida;
+    int tipoOveja;
     private Random r;
     
-    public Oveja(int id, int x, int y, char genero, int vejesMaxima,int tiempoAparearse, int tiempoMaxComida){
+    public Oveja(int id, int x, int y, char genero, int vejesMaxima,int tiempoAparearse, int tiempoMaxComida,int tipoOveja){
         this.id = id;
         this.x = x;
         this.y = y;
@@ -34,6 +35,7 @@ public class Oveja {
         this.vejesMaxima = vejesMaxima;
         this.horaComer=false;
         tiempoSinComer=0;
+        this.tipoOveja=tipoOveja;
         r= new Random();
         setTiempoBuscarComida(r.nextInt(tiempoMaxComida-1));
     }
@@ -134,6 +136,14 @@ public class Oveja {
 
     private void setTiempoBuscarComida(int tiempoBuscarComida) {
         this.tiempoBuscarComida = tiempoBuscarComida;
+    }
+
+    public int getTipoOveja() {
+        return tipoOveja;
+    }
+
+    public void setTipoOveja(int tipoOveja) {
+        this.tipoOveja = tipoOveja;
     }
  
 }
