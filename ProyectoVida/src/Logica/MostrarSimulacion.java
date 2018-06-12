@@ -23,7 +23,7 @@ public class MostrarSimulacion extends JFrame {
     JLabel cantidadOvejas;
     JLabel cantidadLobos;
     JLabel cantidadPasto;
-
+    int ovejasPorTipo[]= new int[10];
     Graphics buffer;
     BufferedImage dibujo;
     Image ovejo = new ImageIcon(getClass().getResource("/img/ovejo.png")).getImage();
@@ -64,7 +64,16 @@ public class MostrarSimulacion extends JFrame {
     
     //variable Random
     Random r = new Random();
-
+    JLabel tipo1;
+    JLabel tipo2;
+    JLabel tipo3;
+    JLabel tipo4;
+    JLabel tipo5;
+    JLabel tipo6;
+    JLabel tipo7;
+    JLabel tipo8;
+    JLabel tipo9;
+    JLabel tipo10;
     public MostrarSimulacion() {
 
         laSimulacion.setTamanoSimulacion(anchoVentana, altoVetana); //trasnfiera el tamano de ventana a los margenes de la simulacion
@@ -135,7 +144,7 @@ public class MostrarSimulacion extends JFrame {
         //creo que esta es la forma de adentro de el, ejecutar los segundos que sean globales a todo
 
         VentanaSegundos = new JFrame("tiempo");
-        VentanaSegundos.setResizable(false);
+        VentanaSegundos.setResizable(true);
         VentanaSegundos.setSize(100, 400);
         //VentanaSegundos.setLocation(10, 10);
         //VentanaSegundos.setBounds(0, 0, 100, 100);
@@ -162,6 +171,39 @@ public class MostrarSimulacion extends JFrame {
         cantidadPasto = new JLabel("");
         cantidadPasto.setBounds(0, 75, 130, 25);
         panelEstados.add(cantidadPasto);
+        //panelEstados.setLayout(new FlowLayout());
+        
+        tipo1= new JLabel("1-");
+        tipo1.setBounds(0, 100, 130, 25);
+        panelEstados.add(tipo1);
+        tipo2= new JLabel("2-");
+        tipo2.setBounds(0, 125, 130, 25);
+        panelEstados.add(tipo2);
+        tipo3= new JLabel("3-");
+        tipo3.setBounds(0, 150, 130, 25);
+        panelEstados.add(tipo3);
+        tipo4= new JLabel("4-");
+        tipo4.setBounds(0, 175, 130, 25);
+        panelEstados.add(tipo4);
+        tipo5= new JLabel("5-");
+        tipo5.setBounds(0, 200, 130, 25);
+        panelEstados.add(tipo5);
+        tipo6= new JLabel("6-");
+        tipo6.setBounds(0, 225, 130, 25);
+        panelEstados.add(tipo6);
+        tipo7= new JLabel("7-");
+        tipo7.setBounds(0, 250, 130, 25);
+        
+        panelEstados.add(tipo7);
+        tipo8= new JLabel("8-");
+        tipo8.setBounds(0, 275, 130, 25);
+        panelEstados.add(tipo8);
+        tipo9= new JLabel("9-");
+        tipo9.setBounds(0, 300, 130, 25);
+        panelEstados.add(tipo9);
+        tipo10= new JLabel("10-");
+        tipo10.setBounds(0, 325, 130, 25);
+        panelEstados.add(tipo10);
 
         VentanaSegundos.setVisible(true);
 
@@ -177,7 +219,8 @@ public class MostrarSimulacion extends JFrame {
 
                         moverOveja();
                         moverLobo();
-
+                        for(int j=0;j<10;j++){
+                        ovejasPorTipo[j]=0;}
                         if (contador == 20) {
                             // cuando contador == 20 quiere decir que ha parado 20 veces por un tiempo de 50 milisegundos
                             //lo cual es un segundo (20*50 = 1000 milisegundos), asi que aumenta en un segundo la variable segundosEjecucion
@@ -193,7 +236,7 @@ public class MostrarSimulacion extends JFrame {
                             for (int i = 0; i < lasOvejas.size(); i++) {
                                 //Alimento
                                 lasOvejas.get(i).masHambre();
-                                
+                                ovejasPorTipo[(lasOvejas.get(i).getTipoOveja()-1)]+=1;
                                 //fin Alimento
                                 
                                 
@@ -208,7 +251,16 @@ public class MostrarSimulacion extends JFrame {
                                     lasOvejas.get(i).setHoraAparearse(true);
                                 }
                             }
-
+                            tipo1.setText("1- "+ovejasPorTipo[0]);
+                            tipo2.setText("2- "+ovejasPorTipo[1]);
+                            tipo3.setText("3- "+ovejasPorTipo[2]);
+                            tipo4.setText("4- "+ovejasPorTipo[3]);
+                            tipo5.setText("5- "+ovejasPorTipo[4]);
+                            tipo6.setText("6- "+ovejasPorTipo[5]);
+                            tipo7.setText("7- "+ovejasPorTipo[6]);
+                            tipo8.setText("8- "+ovejasPorTipo[7]);
+                            tipo9.setText("9- "+ovejasPorTipo[8]);
+                            tipo10.setText("10- "+ovejasPorTipo[9]);
                             tiempoApareamiento();
                             /////////////////////////////////////////////////////////////////////////
                             if (segundosEjecucion % tiempoLobosAlimento == 0) { // cada X segundos un lobo busca comida.
@@ -252,7 +304,7 @@ public class MostrarSimulacion extends JFrame {
                         }
 
                         contador++;
-                        Thread.sleep(10); //se detien por 50 milisegundos, 
+                        Thread.sleep(20); //se detien por 50 milisegundos, 
 
                         repaint();
                     } catch (InterruptedException e) {
@@ -276,10 +328,11 @@ public class MostrarSimulacion extends JFrame {
                 if (i % 2 == 0) {
 
                     //Pinta identificador de la oveja
-                    g.drawString(String.valueOf(lasOvejas.get(i).getId() + 1), lasOvejas.get(i).getX() + 8, lasOvejas.get(i).getY());
+                  /*  g.drawString(String.valueOf(lasOvejas.get(i).getId() + 1), lasOvejas.get(i).getX() + 8, lasOvejas.get(i).getY());
                     Font font = new Font("Serif", Font.BOLD, 20);
                     g.setFont(font);
                     g.setColor(Color.RED);
+                    */
                     //Pinta oveja
                     /*
                     Bloque que no permite que se cambie género inicial de una oveja, ya que si una oveja muere, la simulación
@@ -294,11 +347,14 @@ public class MostrarSimulacion extends JFrame {
                     }
 
                 } else {
+                    
+                    /*
                     //Pinta identificador de la oveja
                     g.drawString(String.valueOf(lasOvejas.get(i).getId() + 1), lasOvejas.get(i).getX() + 8, lasOvejas.get(i).getY());
                     Font font = new Font("Serif", Font.BOLD, 20);
                     g.setFont(font);
                     g.setColor(Color.RED);
+                    */
                     //Pinta oveja
                     if ((lasOvejas.get(i).getGenero() == 'M')) {
                         lasOvejas.get(i).setGenero('M');
